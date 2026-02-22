@@ -1,0 +1,30 @@
+# Байт-скомпилированные файлы
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Виртуальное окружение
+venv/
+env/
+ENV/
+
+# Файлы базы данных
+*.db
+*.sqlite
+
+# Логи
+*.log
+
+# Временные файлы
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ОС
+.DS_Store
+Thumbs.db
