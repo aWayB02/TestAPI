@@ -133,12 +133,27 @@ async def update_todo(
         if not existing_todo:
             raise HTTPException(status_code=404, detail="Задача не найдена")
 
+        # Обработка значения completed с преобразованием типов
+        completed = todo_data.get("completed")
+        if completed is not None:
+            if isinstance(completed, bool):
+                # Если уже булево значение, оставляем как есть
+                pass
+            elif isinstance(completed, str):
+                # Преобразуем строковые значения в булевы
+                completed = completed.lower() in ("true", "1", "yes", "on")
+            elif isinstance(completed, (int, float)):
+                # Преобразуем числовые значения в булевы
+                completed = bool(completed)
+            else:
+                # Для других типов данных устанавливаем None
+                completed = None
         # Обновляем задачу
         todo = service.update_todo(
             todo_id,
             title=todo_data.get("title"),
             description=todo_data.get("description"),
-            completed=todo_data.get("completed"),
+            completed=completed,
         )
 
         if not todo:
